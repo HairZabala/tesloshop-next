@@ -1,13 +1,14 @@
 import { Box, Button } from '@mui/material';
-import React, { FC } from 'react'
-import { ISize } from '../../interfaces';
+import React, { FC, Dispatch, SetStateAction } from 'react'
+import { ICartProduct, ISize } from '../../interfaces';
 
 interface Props {
   selectedSize?: ISize;
-  sizes: ISize[]
+  sizes: ISize[];
+  onSelectedSize: (size: ISize) => void
 }
 
-export const SizeSelector: FC<Props> = ({ selectedSize, sizes }) => {
+export const SizeSelector: FC<Props> = ({ selectedSize, sizes, onSelectedSize }) => {
   return (
     <Box>
       {sizes.map((size) => (
@@ -15,6 +16,7 @@ export const SizeSelector: FC<Props> = ({ selectedSize, sizes }) => {
           key={size}
           size={'small'}
           color={selectedSize === size ? 'primary' : 'info' }
+          onClick={() => onSelectedSize(size)}
         >
           { size }
         </Button>
