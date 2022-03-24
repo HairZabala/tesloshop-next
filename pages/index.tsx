@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import { Card, CardActionArea, CardMedia, Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../components/layouts';
-import { initialData } from '../database/products';
 import { ProductList } from '../components/products/ProductList';
 import { useProducts } from '../hooks';
 import { FullScreenLoading } from '../components/ui/FullScreenLoading';
