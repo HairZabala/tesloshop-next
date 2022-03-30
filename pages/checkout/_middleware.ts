@@ -1,18 +1,30 @@
+import { getToken } from "next-auth/jwt";
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { jwt } from "../../utils";
 
-export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+export async function middleware(req: any, ev: NextFetchEvent) {
 
-  const { token = ''} = req.cookies;
+  const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
-  try {
-    await jwt.isValidToken(token);
-    return NextResponse.next();
-  } catch (error) {
+  if(!session){
     const url = req.nextUrl.clone()
     url.pathname = '/auth/login';
     url.search = `p=${req.page.name}`;
     return NextResponse.redirect(url);
   }
+  
+  return NextResponse.next();
+
+  // const { token = ''} = req.cookies;
+
+  // try {
+  //   await jwt.isValidToken(token);
+  //   return NextResponse.next();
+  // } catch (error) {
+  //   const url = req.nextUrl.clone()
+  //   url.pathname = '/auth/login';
+  //   url.search = `p=${req.page.name}`;
+  //   return NextResponse.redirect(url);
+  // }
 
 }
