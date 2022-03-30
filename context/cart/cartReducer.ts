@@ -1,4 +1,4 @@
-import { CartState } from './';
+import { CartState, ShippingAddress } from './';
 import { ICartProduct } from '../../interfaces/cart';
 
 type CartActionType =
@@ -6,6 +6,8 @@ type CartActionType =
     | { type: '[Cart] - Update products in cart', payload: ICartProduct[] }
     | { type: '[Cart] - Change cart product quantity', payload: ICartProduct }
     | { type: '[Cart] - Remove cart product', payload: ICartProduct }
+    | { type: '[Cart] - Load address from cookies', payload: ShippingAddress }
+    | { type: '[Cart] - Update address', payload: ShippingAddress }
     | { 
       type: '[Cart] - update orden summary', 
       payload: {
@@ -21,6 +23,7 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
     case '[Cart] - LoadCart from cookies | storage':
       return {
         ...state,
+        isLoaded: true,
         cart: action.payload
       };
     case '[Cart] - Update products in cart':
@@ -52,6 +55,12 @@ export const cartReducer = (state: CartState, action: CartActionType): CartState
         
         ...state,
         ...action.payload
+      };
+    case '[Cart] - Load address from cookies':
+    case '[Cart] - Update address':
+      return {
+        ...state,
+        shippingAddress: action.payload
       };
     default:
       return state;

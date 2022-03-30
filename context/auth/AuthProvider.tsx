@@ -4,6 +4,7 @@ import { AuthContext, authReducer } from './';
 import tesloApi from '../../api/tesloApi';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export interface AuthState {
   isLoggedIn: boolean;
@@ -16,6 +17,9 @@ const initialState: AuthState = {
 };
 
 export const AuthProvider: FC = ({ children }: any) => {
+
+  const router = useRouter();
+
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
@@ -91,12 +95,19 @@ export const AuthProvider: FC = ({ children }: any) => {
     }
   }
 
+  const logout = () => {
+    Cookies.remove('token');
+    Cookies.remove('cart');
+    router.reload();
+  }
+
   return (
     <AuthContext.Provider
       value={{
         ...state,
         loginUser,
-        registerUser
+        registerUser,
+        logout
       }}
     >
       {children}
