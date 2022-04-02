@@ -31,6 +31,8 @@ const OrderSchema = new Schema({
   isPaid        : { type: Boolean, required: true, default: false},
   paidAt        : { type: String },
 
+  transactionId: { type: String }
+
 }, { timestamps: true ,collection: 'orders' });
 
 const OrderModel: Model<IOrder> = mongoose.models.Order || model('Order', OrderSchema);
