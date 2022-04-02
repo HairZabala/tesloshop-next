@@ -51,7 +51,6 @@ export default NextAuth({
           break
         }
       }
-      console.log({ token, account, user });
       return token;
     },
 

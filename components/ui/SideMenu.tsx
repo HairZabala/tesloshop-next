@@ -68,7 +68,7 @@ export const SideMenu = () => {
                             <ListItemIcon>
                                 <ConfirmationNumberOutlined/>
                             </ListItemIcon>
-                            <ListItemText primary={'Mis Ordenes'} />
+                            <ListItemText primary={'Mis Ordenes'} onClick={() => navigateTo('/orders/history')} />
                         </ListItem>
                         </>
                     )} 
